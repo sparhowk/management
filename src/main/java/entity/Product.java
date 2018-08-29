@@ -1,73 +1,30 @@
 package entity;
 
 public class Product {
-    private long id;
-    private String produktName;
+    private Long id;
+    private String productName;
     private float price;
     private float weight;
     private String color;
     private int productCount;
+    public final static String PRODUCT_SEPRATOR = "#";
 
-        public Product(Buldier buldier) {
-        this.id = buldier.id;
-        this.produktName = buldier.produktName;
-        this.price = buldier.price;
-        this.weight = buldier.weight;
-        this.color = buldier.color;
-        this.productCount = buldier.productCount;
+
+    public Product(Long id, String productName, Float price, Float weight, String color, Integer productCount) {
+        this.id = id;
+        this.productName = productName;
+        this.price = price;
+        this.weight = weight;
+        this.color = color;
+        this.productCount=productCount;
     }
 
-    public static class Buldier {
-        private long id;
-        private String produktName;
-        private float price;
-        private float weight;
-        private String color;
-        private int productCount;
-
-        public Buldier() { }
-
-        public Buldier setId(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Buldier setProduktName(String produktName) {
-            this.produktName = produktName;
-            return this;
-        }
-
-        public Buldier setPrice(float price) {
-            this.price = price;
-            return this;
-        }
-
-        public Buldier setWeight(float weight) {
-            this.weight = weight;
-            return this;
-        }
-
-        public Buldier setColor(String color) {
-            this.color = color;
-            return this;
-        }
-
-        public Buldier setProductCount(int productCount) {
-            this.productCount = productCount;
-            return this;
-        }
-
-        public Product bulid() {
-            return new Product(this);
-        }
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     public String getProduktName() {
-        return produktName;
+        return productName;
     }
 
     public float getPrice() {
@@ -96,11 +53,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product "
-                + "Id='" + id + '\''
-                + ", Name='" + produktName + '\''
-                + ", Stock='" + productCount + '\''
-                + ", Price='" + price + '\'';
+        return id + PRODUCT_SEPRATOR + productName + PRODUCT_SEPRATOR + price
+                + weight + PRODUCT_SEPRATOR + color + PRODUCT_SEPRATOR + productCount;
 
     }
 }

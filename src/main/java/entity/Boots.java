@@ -4,31 +4,10 @@ public class Boots extends Product {
     private int size;
     private boolean isNaturalSkin;
 
-    public Boots(BootsBuldier buldier) {
-        super(buldier);
-        this.size = buldier.size;
-        this.isNaturalSkin = buldier.isNaturalSkin;
-    }
-
-    public static class BootsBuldier extends Product.Buldier {
-        private int size;
-        private boolean isNaturalSkin;
-
-        public BootsBuldier() { }
-
-        public BootsBuldier setSizeBoots(int size) {
-            this.size = size;
-            return this;
-        }
-
-        public BootsBuldier setIsNaturalSkin(boolean isNaturalSkin) {
-            this.isNaturalSkin = isNaturalSkin;
-            return this;
-        }
-
-        public Boots bulid() {
-             return new Boots(this);
-        }
+    public Boots(Long id, String productName, Float price, Float weight, String color, Integer productCount, Integer size, boolean isNaturalSkin) {
+        super(id, productName, price, weight, color, productCount);
+        this.size = size;
+        this.isNaturalSkin = isNaturalSkin;
     }
 
     public int getSize() {
@@ -42,7 +21,6 @@ public class Boots extends Product {
     @Override
     public String toString() {
         return super.toString()
-                + ", size=" + size
-                + ", NaturalSkin=" + isNaturalSkin;
+                + PRODUCT_SEPRATOR + size + PRODUCT_SEPRATOR + isNaturalSkin;
     }
 }

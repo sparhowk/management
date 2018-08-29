@@ -15,12 +15,10 @@ public class ProductServiceTest {
     public void testGetAllProductsPositive() {
         //is
         List<Product> products = new ArrayList<Product>();
-        Product item1 = new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(1).setProduktName("item1").setPrice(12.6f)
-                .setWeight(11.12f).setColor("red").setProductCount(16).bulid();
+        Product item1 = new Boots(1l, "item1", 12.6f, 11.12f, "red", 16, 43, true);
 
         products.add(item1);
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(2).setProduktName("item2") .setPrice(12.6f)
-                .setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         //then
         ProductServiceImpl productService = new ProductServiceImpl(products);
@@ -34,12 +32,11 @@ public class ProductServiceTest {
     public void testGetAllProductNegative() {
         //is
         List<Product> products = new ArrayList<Product>();
-        products.add(new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(1l).setProduktName("item1").setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(2l).setProduktName("item2") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
-
+        products.add(new Boots(1l, "item1", 12.6f, 11.12f, "red", 16, 43, true));
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
         //then
         ProductServiceImpl productService = new ProductServiceImpl(new ArrayList<Product>(products));
-        products.add(new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(3l).setProduktName("item3").setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Boots(3l,"item3",12.6f,11.12f,"red",16,43,true));
 
         List<Product> productsFromTheClass = productService.getAllProducts();
 
@@ -50,12 +47,12 @@ public class ProductServiceTest {
     @Test
     public void testCountProductsWithProducts(){
         List<Product> products = new ArrayList<Product>();
-        products.add(new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(1l).setProduktName("item1").setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(2l).setProduktName("item2") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Boots(1l, "item1", 12.6f, 11.12f, "red", 16, 43, true));
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         //then
         ProductServiceImpl productService = new ProductServiceImpl(products);
-        final long result = productService.countAllProducts();
+        final int result = productService.countAllProducts();
 
         Assert.assertEquals(2, result);
     }
@@ -72,11 +69,9 @@ public class ProductServiceTest {
     @Test
     public void testGetProductByProductNameWhenExist() {
         List<Product> products = new ArrayList<Product>();
-        Product item1 = new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(1).setProduktName("item1").setPrice(12.6f)
-                .setWeight(11.12f).setColor("red").setProductCount(16).bulid();
-
+        Product item1 = new Boots(1l, "item1", 12.6f, 11.12f, "red", 16, 43, true);
         products.add(item1);
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(2l).setProduktName("item2") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final Product product = productService.getProductByProductName("item1");
@@ -87,11 +82,9 @@ public class ProductServiceTest {
     @Test
     public void testGetProductByProductNameWhenNotExist() {
         List<Product> products = new ArrayList<Product>();
-        Product item1 = new Boots.BootsBuldier().setSizeBoots(43).setIsNaturalSkin(true).setId(1).setProduktName("item1").setPrice(12.6f)
-                .setWeight(11.12f).setColor("red").setProductCount(16).bulid();
-
+        Product item1 = new Boots(1l, "item1", 12.6f, 11.12f, "red", 16, 43, true);
         products.add(item1);
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(2l).setProduktName("item2") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final Product product = productService.getProductByProductName("item3");
@@ -102,7 +95,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProductOnWerhouseIsIn(){
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean productOnWerhouse = productService.isProductOnWerhouse("item1");
@@ -114,7 +107,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProductOnWerhouseIsNotIn(){
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(0).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean productOnWerhouse = productService.isProductOnWerhouse("item1");
@@ -125,7 +118,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProductNameExist() {
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean isProductNameExist = productService.isProductNameExist("item1");
@@ -136,7 +129,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProductNameNotExist() {
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean isProductNameExist = productService.isProductNameExist("item2");
@@ -147,7 +140,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProduktIdExist() {
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean isProductIdExist = productService.isProduktIdExist(1l);
@@ -158,7 +151,7 @@ public class ProductServiceTest {
     @Test
     public void testIsProduktIdNotExist() {
         List<Product> products = new ArrayList<Product>();
-        products.add(new Cloth.ClothBuldier().setSizeCloth("L").setMaterial("Cotton").setId(1l).setProduktName("item1") .setPrice(12.6f).setWeight(11.12f).setColor("red").setProductCount(16).bulid());
+        products.add(new Cloth(2l,"item2", 12.6f, 11.12f, "red", 16,"L", "Cotton"));
 
         ProductServiceImpl productService = new ProductServiceImpl(products);
         final boolean isProductIdExist = productService.isProduktIdExist(10l);

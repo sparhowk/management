@@ -1,17 +1,19 @@
 package entity;
 
 public class User {
-    private long id;
+    private Long id;
     private String login;
     private String password;
+    public final static String USER_SEPRATOR = "#";
 
-    public User (long id, String login, String password) {
+
+    public User (Long id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -29,9 +31,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "USER{"
-                + "id='" + id + '\''
-                + "login='" + login + '\''
-                + "}";
+        return id + USER_SEPRATOR + login + USER_SEPRATOR + password;
     }
 }
