@@ -12,19 +12,30 @@ import utils.FileUtils;
 import static utils.FileUtils.*;
 
 public class UserDaoImp implements api.UserDao {
-    private String fileName;
+    private String fileName = "users.txt";
     private String filePath = FILE_PATH;
+    private static UserDaoImp instance = null;
 
-    public UserDaoImp(String fileName)  throws IOException {
-        this.fileName = fileName;
-        createNewFile(fileName);
+    private UserDaoImp() {
+        try {
+            FileUtils.createNewFile(fileName);
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
+
+    }
+
+    public static UserDaoImp getInstance(){
+        if (instance == null) {
+            instance = new UserDaoImp();
+        }
+        return instance;
     }
 
     public void saveUser(User user) throws IOException {
         List<User> users = getAllUsers();
         users.add(user);
         saveUsers(users);
-
     }
 
     public void saveUsers(List<User> users) throws IOException {
@@ -62,13 +73,14 @@ public class UserDaoImp implements api.UserDao {
     public User getUserById(Long userId) throws IOException {
         List<User> users = getAllUsers();
         for (User user: users ) {
-            boolean isFounfUser = user.getId().equals(userId);
-            if (isFounfUser) {
+            boolean isFoundUser = user.getId().equals(userId);
+            if (isFoundUser) {
                 return user;
             }
         }
         return null;
     }
+
 
     public void removeUserByLogin(String login) throws IOException {
         List<User> users = getAllUsers();

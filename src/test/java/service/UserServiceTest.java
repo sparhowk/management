@@ -16,7 +16,7 @@ public class UserServiceTest {
         users.add(new User(2l, "pablo", "admin"));
 
         //then
-        UserServiceImpl userService = new UserServiceImpl(users);
+        UserServiceImp userService = new UserServiceImp(users);
         List<User> usersFromTestClass = userService.getAllUsers();
 
         //expected
@@ -31,7 +31,7 @@ public class UserServiceTest {
         users.add(user);
 
         //then
-        UserServiceImpl userService = new UserServiceImpl();
+        UserServiceImp userService = new UserServiceImp();
         userService.addUser(user);
         List<User> usersFromTestClass = userService.getAllUsers();
 
@@ -49,7 +49,7 @@ public class UserServiceTest {
         users.add(pablo);
 
         //then
-        UserServiceImpl userService = new UserServiceImpl(users);
+        UserServiceImp userService = new UserServiceImp(users);
         userService.removeUserById(1l);
         users.remove(admin);
         List<User> usersFromTestClass = userService.getAllUsers();

@@ -12,15 +12,28 @@ import java.util.List;
 
 
 public class ProductDaoImpl implements ProductDao {
-    private String fileName;
+    private String fileName = "products.txt";
     private String productType;
+    private static ProductDaoImpl instance = null;
 
-    public ProductDaoImpl(String fileName, String productType) throws IOException {
-        this.fileName = fileName;
-        this.productType = productType;
-        FileUtils.createNewFile(fileName);
+    private ProductDaoImpl () {
     }
 
+    public ProductDaoImpl(String fileName, String productType) {
+        this.fileName = fileName;
+        this.productType = productType;
+        try {
+            FileUtils.createNewFile(fileName);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }    }
+
+    public static ProductDaoImpl getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoImpl();
+        }
+        return instance;
+    }
 
     public void saveProduct(Product product) throws IOException {
         List<Product> products = getAllProducts();
@@ -31,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
     public void saveProducts(List<Product> products) throws FileNotFoundException {
         PrintWriter writeToFile = new PrintWriter(new FileOutputStream(FileUtils.FILE_PATH+fileName, true));
         for (Product product: products ) {
-            writeToFile.write(products.toString() + "\n");
+            writeToFile.write(product.toString() + "\n");
         }
         writeToFile.close();
      }

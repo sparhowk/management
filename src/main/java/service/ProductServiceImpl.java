@@ -1,63 +1,55 @@
 package service;
 
 import api.ProductService;
+import dao.ProductDaoImpl;
 import entity.Product;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    List<Product> products;
+    private static ProductServiceImpl instance = null;
+    ProductDaoImpl productDaoInstancen = ProductDaoImpl.getInstance();
 
-    public ProductServiceImpl() {
-        this.products = new ArrayList<Product>();
+
+    private ProductServiceImpl() throws IOException {
     }
 
-    public ProductServiceImpl(List<Product> product){
-        this.products = product;
-    }
-
-    public List<Product> getAllProducts() {
-        return products;
-    }
-
-    public Integer countAllProducts() {
-        return products.size();
-    }
-
-    public Product getProductByProductName(String productName) {
-        for (Product product : products){
-            if (product.getProduktName().equals(productName)) {
-                return product;
-            }
+    public static ProductServiceImpl getInstance() throws IOException {
+        if (instance==null) {
+            instance = new ProductServiceImpl();
         }
-        return null;
+        return instance;
     }
 
-    public boolean isProductOnWerhouse(String productName) {
-        for (Product product : products) {
-            if (isProductNameExist(productName) && (product.getProductCount() > 0)) {
-                return true;
-            }
-        }
+    public List<Product> getAllProducts() throws IOException {
+        return productDaoInstancen.getAllProducts();
+    }
+
+    public Integer countAllProducts() throws IOException {
+        return getAllProducts().size();
+    }
+
+    public Product getProductByProductName(String productName) throws IOException {
+        return productDaoInstancen.getProductByName(productName);
+    }
+
+    public boolean isProductOnWerhouse(String productName) throws IOException {
+        Product product = getProductByProductName(productName);
+        if (product != null && product.getProductCount() > 0) return true;
         return false;
     }
 
-    public boolean isProductNameExist(String produktName) {
-        for (Product product: products) {
-            if (product.getProduktName().equals(produktName)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isProductNameExist(String productName) throws IOException {
+        Product product = getProductByProductName(productName);
+        if (product == null) return false;
+        return true;
     }
 
-    public boolean isProduktIdExist(Long produktId){
-        for (Product product: products) {
-            if (product.getId() == produktId) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isProduktIdExist(Long productId) throws IOException {
+        Product product = productDaoInstancen.getProductById(productId);
+        if (product == null) return false;
+        return true;
     }
 }
